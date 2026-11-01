@@ -1,0 +1,3 @@
+option('tests', type: 'feature', value: 'auto', description: 'Unit tests (gtest)')
+option('alsa', type: 'feature', value: 'auto', description: 'ALSA audio backend in bitvm')
+option('sndfile', type: 'feature', value: 'enabled', description: 'Sample file loading in bitvm (libsndfile)')
