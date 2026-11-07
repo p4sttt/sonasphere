@@ -1,0 +1,35 @@
+name: tests
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+
+jobs:
+  tests:
+    runs-on: ubuntu-24.04
+    timeout-minutes: 15
+    env:
+      CXX: g++-14
+    steps:
+      - name: check out sources
+        uses: actions/checkout@v7
+
+      - name: install dependencies
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends \
+            g++-14 meson ninja-build pkg-config \
+            libgtest-dev libasound2-dev libsndfile1-dev
+
+      - name: configure
+        run: meson setup build -Dtests=enabled -Dalsa=enabled -Dsndfile=enabled
+
+      - name: compile
+        run: meson compile -C build
+
+      - name: run tests
+        run: meson test -C build --no-rebuild --print-errorlogs
