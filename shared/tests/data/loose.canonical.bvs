@@ -1,0 +1,12 @@
+call/1 def.load graph=base64:QlZHRAEABABwaW5nAgAEAGZyZXEAANxDAwBhbXDNzEw+BQAAAAAACtejO83MzD4AAIA/AACAwAQABwBzaW5fb3NjCABlbnZfcGVyYwMAbXVsAwBvdXQFAAAAAgECAQAAAAAAAAABAAEBBQABAAAAAgAAAAMAAAAEAAAAAwAAAgACAQICAAAAAgEAAAIAAgECAgIAAAEBAAADAAIAAwAAAAACAwAAAgMAAA==
+call/2 sync
+@now/3 group.new id=0x01000001 add=head target=0x00000000
+@10500000000/4 node.new id=0x01000002 def=1 add=tail target=0x01000001 $freq=440 $amp=0.2
+@11000000000/5 {
+  node.set id=0x01000002 ramp=0.05 $1=0
+  node.free ids=0x01000003
+}
+@3/6 node.set id=0x00000001 $0=1 $1=2
+call/7 buf.load path="a b.wav"
+call/8 tree root=0x00000001
+hello/9 major=0 minor=1 catalog_hash=0x0000000000000001 requested_client=0 events=none name=x

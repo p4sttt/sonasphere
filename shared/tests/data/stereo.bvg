@@ -1,0 +1,7 @@
+# stereo passthrough with a variable-output unit
+graph "stereo thru"
+param gain 1
+%in:2 = in.ar 8
+%l = mul.ar %in $gain
+%r = mul.ar %in.1 $gain
+out.ar 0 %l %r

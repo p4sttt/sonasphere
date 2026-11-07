@@ -1,0 +1,49 @@
+hello/1 major=0 minor=1 catalog_hash=0x1122334455667788 requested_client=0 events=n_end,late name=sona
+welcome/2 major=0 minor=1 catalog_hash=0x1122334455667788 client_id=1 id_base=0x01000000 id_count=16777216 sample_rate=48000 block_size=64 out_channels=2 in_channels=0 audio_buses=16 control_buses=16 max_buffers=1024 output_latency_ns=8000000 late_tolerance_ns=50000000 max_message=65536 server_now_ns=1234567890 server=bitvmd
+reject/3 code=version msg="catalog mismatch"
+call/4 status
+reply/5 def.load ok def=1
+@now/6 group.new id=0x01000001 add=head target=0x00000000
+@1500000000/7 {
+  node.new id=0x01000002 def=1 add=tail target=0x01000001 $freq=440 $amp=0.2
+  node.set id=0x01000002 ramp=0.05 $amp=0
+  node.free ids=0x01000003
+}
+event/8 n_end id=0x01000002
+reply/9 0x0000 err=not_found msg="no such def"
+@2000000000/10 {
+  node.new id=0x01000010 def=2 add=head target=0x00000000 paused=1 $gate=1
+  group.new id=0x01000011 add=before target=0x01000010
+  node.set id=0x01000010 ramp=1.5 $gate=0
+  node.run id=0x01000010 run=1
+  node.move id=0x01000010 add=after target=0x01000011
+  group.clear id=0x01000011
+  cbus.set index=3 values=0.5,-1,0
+  node.free ids=0x01000010,0x01000011
+}
+call/11 sync
+call/12 tree root=0x00000000
+call/13 tree root=0x01000001 depth=3
+call/14 client.reset
+call/15 def.load graph=base64:QlZHRAEABABwaW5nAgAEAGZyZXEAANxDAwBhbXDNzEw+BQAAAAAACtejO83MzD4AAIA/AACAwAQABwBzaW5fb3NjCABlbnZfcGVyYwMAbXVsAwBvdXQFAAAAAgECAQAAAAAAAAABAAEBBQABAAAAAgAAAAMAAAAEAAAAAwAAAgACAQICAAAAAgEAAAIAAgECAgIAAAEBAAADAAIAAwAAAAACAwAAAgMAAA==
+call/16 def.free def=1
+call/17 buf.alloc frames=48000 channels=2
+call/18 buf.load path=samples/bd.wav
+call/19 buf.load path="my samples/bd.wav" start=100 frames=2000
+call/20 buf.free buf=0
+call/21 bus.alloc kind=audio count=2
+call/22 bus.free kind=control base=4
+reply/23 sync ok
+reply/24 status ok now_ns=123456789 sample_rate=48000 block_size=64 cpu_avg=0.25 cpu_peak=0.5 nodes=3 groups=1 defs=1 buffers=0 rt_queue_used=0 rt_queue_capacity=4096 late_played=0 late_dropped=0 skipped=0 xruns=0 events_dropped=0
+reply/25 tree ok truncated=0 entries=0x00000000:0xffffffff:group:0:1,0x01000001:0x00000000:synth:1:1
+reply/26 buf.load ok buf=0 frames=48000 channels=2 sample_rate=44100
+reply/27 buf.alloc ok buf=1
+reply/28 bus.alloc ok base=2
+reply/29 buf.load err=io msg="cannot open file"
+reply/30 tree ok truncated=1 entries=
+event/31 late played=1 dropped=2 max_late_ns=3000000
+event/32 xrun count=2
+event/33 error bundle_seq=7 index=1 opcode=node.new code=exists level=2 msg="id in use"
+event/34 error bundle_seq=8 index=65535 opcode=0x0000 code=malformed level=1 msg="bad bundle"
+hello/35 major=0 minor=1 catalog_hash=0x0000000000000000 requested_client=5 events=n_end,late,xrun name="a b"
+reply/36 0x7777 err=unsupported msg=""

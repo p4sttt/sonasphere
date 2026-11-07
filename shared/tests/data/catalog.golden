@@ -1,0 +1,77 @@
+unit add {
+    rates: ir,kr,ar
+    input: a read=unit required
+    input: b read=unit required
+    outputs: 1
+    done: false
+    description: a + b
+}
+unit sub {
+    rates: ir,kr,ar
+    input: a read=unit required
+    input: b read=unit required
+    outputs: 1
+    done: false
+    description: a - b
+}
+unit mul {
+    rates: ir,kr,ar
+    input: a read=unit required
+    input: b read=unit required
+    outputs: 1
+    done: false
+    description: a * b
+}
+unit div {
+    rates: ir,kr,ar
+    input: a read=unit required
+    input: b read=unit required
+    outputs: 1
+    done: false
+    description: a / b, 0 when b is 0
+}
+unit sin_osc {
+    rates: kr,ar
+    input: freq read=unit default=440
+    input: phase read=ir default=0
+    outputs: 1
+    done: false
+    description: sine oscillator of amplitude 1, phase in turns
+}
+unit env_perc {
+    rates: kr,ar
+    input: attack read=ir default=0.01
+    input: release read=ir default=1
+    input: level read=ir default=1
+    input: curve read=ir default=-4
+    input: done read=ir default=0
+    outputs: 1
+    done: true
+    description: percussive envelope: attack to level, then release to 0, both curved
+}
+unit env_asr {
+    rates: kr,ar
+    input: gate read=kr default=1
+    input: attack read=ir default=0.01
+    input: level read=ir default=1
+    input: release read=ir default=0.3
+    input: done read=ir default=0
+    outputs: 1
+    done: true
+    description: attack, sustain and release envelope driven by gate
+}
+unit out {
+    rates: kr,ar
+    input: bus read=kr required
+    variadic: channels read=unit count=1-64
+    outputs: 0
+    done: false
+    description: writes channels to consecutive buses starting at bus
+}
+unit in {
+    rates: kr,ar
+    input: bus read=kr required
+    outputs: 1-64
+    done: false
+    description: reads consecutive buses starting at bus
+}

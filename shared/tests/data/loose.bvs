@@ -1,0 +1,14 @@
+# a score fragment in the loose syntax
+call def.load graph=@ping.bvg      # graph file
+call sync
+
+@now group.new id=0x01000001 add=head target=0
+@+0.5 node.new id=0x01000002 def=1 add=tail target=0x01000001 $freq=440 $amp=0.2
+@+1.0 {
+  node.set id=0x01000002 ramp=0.05 $amp=0
+  node.free ids=0x01000003
+}
+@3 node.set id=1 $0=1 $1=2
+call buf.load path="a b.wav"
+call tree root=1
+hello major=0 minor=1 catalog_hash=0x1 requested_client=0 events=none name=x
