@@ -8,7 +8,10 @@ bitvm_inc = include_directories('include')
 bitvm_lib = static_library(
   'bitvm',
   'src/buses.cpp',
+  'src/engine.cpp',
   'src/graph.cpp',
+  'src/node_tree.cpp',
+  'src/time_map.cpp',
   include_directories: bitvm_inc,
   dependencies: [bitvm_proto_dep, threads_dep, sndfile_dep],
   cpp_args: sndfile_dep.found() ? ['-DBITVM_HAVE_SNDFILE=1'] : [],
