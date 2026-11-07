@@ -1,0 +1,4 @@
+call def.load graph=@ping.bvg
+@now node.new id=0x01000001 def=1 add=tail target=0 $freq=440 $amp=0.2
+@+0.5 node.new id=0x01000002 def=1 add=tail target=0 $freq=660 $amp=0.15
+@+1 node.new id=0x01000003 def=1 add=tail target=0 $freq=880 $amp=0.1

@@ -7,10 +7,12 @@ bitvm_inc = include_directories('include')
 
 bitvm_lib = static_library(
   'bitvm',
+  'src/backend.cpp',
   'src/buses.cpp',
   'src/engine.cpp',
   'src/graph.cpp',
   'src/node_tree.cpp',
+  'src/score.cpp',
   'src/time_map.cpp',
   include_directories: bitvm_inc,
   dependencies: [bitvm_proto_dep, threads_dep, sndfile_dep],
@@ -24,6 +26,8 @@ bitvm_dep = declare_dependency(
 )
 
 executable('bitvmd', 'bitvmd/main.cpp', dependencies: bitvm_dep, install: true)
+
+executable('bitvm-render', 'tools/render.cpp', dependencies: bitvm_dep, install: true)
 
 if gtest_dep.found()
   subdir('tests')

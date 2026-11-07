@@ -2,6 +2,7 @@
 bitvm_tests = [
   'core',
   'dsp',
+  'offline',
   'rt',
 ]
 
