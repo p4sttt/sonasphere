@@ -1,0 +1,9 @@
+graph ping
+param freq 440
+param amp 0.2
+
+%0 = sin_osc.ar $freq 0
+%1 = env_perc.kr 0.005 0.4 1 -4 1
+%2 = mul.ar %0 %1
+%3 = mul.ar %2 $amp
+out.ar 0 %3 %3

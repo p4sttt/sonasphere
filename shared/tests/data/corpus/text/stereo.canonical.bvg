@@ -1,0 +1,7 @@
+graph "stereo thru"
+param gain 1
+
+%0:2 = in.ar 8
+%1 = mul.ar %0 $gain
+%2 = mul.ar %0.1 $gain
+out.ar 0 %1 %2

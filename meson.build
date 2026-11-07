@@ -25,6 +25,15 @@ add_project_arguments(
   language: 'cpp',
 )
 
+if get_option('fuzz')
+  if cpp.get_id() != 'clang'
+    error('-Dfuzz=true needs clang (libFuzzer); use CXX=clang++')
+  endif
+  # instrument the library; the fuzz targets link the libFuzzer main themselves
+  add_project_arguments('-fsanitize=fuzzer-no-link', language: 'cpp')
+  add_project_link_arguments('-fsanitize=fuzzer-no-link', language: 'cpp')
+endif
+
 threads_dep = dependency('threads')
 gtest_dep = dependency('gtest', main: true, required: get_option('tests'))
 

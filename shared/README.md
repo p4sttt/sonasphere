@@ -21,7 +21,7 @@
 | `text` | ассемблер и дизассемблер сообщений и `.bvg` |
 | `transport` | путь сокета, `listen` / `connect`, отправка и приём одного сообщения |
 
-## Тесты
+## Тесты и фаззинг
 
 ```bash
 meson test -C build --suite shared
@@ -31,3 +31,18 @@ Golden-файлы лежат в `tests/data/`. Чтобы пересоздать
 осознанного изменения формата, запусти нужный тест с `BITVM_UPDATE_GOLDEN=1` и просмотри diff.
 Значение `catalog_hash()` зафиксировано в `tests/catalog_hash.cpp`, текст каталога — в
 `tests/data/catalog.golden`.
+
+Фаззинг — только clang и libFuzzer:
+
+```bash
+CXX=clang++ meson setup build-fuzz -Dfuzz=true -Db_sanitize=address,undefined
+meson test -C build-fuzz --suite fuzz
+```
+
+Для долгого прогона первым аргументом идёт рабочий каталог корпуса, вторым — зерна:
+
+```bash
+build-fuzz/shared/fuzz_decode /tmp/corpus shared/tests/data/corpus/decode -max_total_time=60
+```
+
+Вход, на котором фаззер упал, кладётся в `tests/data/corpus/<цель>/` как регрессионный.

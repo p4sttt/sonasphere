@@ -1,0 +1,10 @@
+# the example from docs/protocol.md section 15
+graph ping
+param freq 440
+param amp 0.2
+
+%osc = sin_osc.ar $freq
+%env = env_perc.kr 0.005 0.4 1 -4 1
+%sig = mul.ar %osc %env
+%out = mul.ar %sig $amp
+out.ar 0 %out %out
