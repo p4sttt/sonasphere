@@ -10,14 +10,18 @@ Checks: >
   -readability-braces-around-statements,
   google-readability-todo,
   -llvm-prefer-static-over-anonymous-namespace,
-  -cppcoreguidelines-pro-bounds-pointer-arithmetic
+  -cppcoreguidelines-pro-bounds-pointer-arithmetic,
+  -performance-enum-size
 WarningsAsErrors: ""
 HeaderFileExtensions: ["", "h", "hh", "hpp", "hxx"]
 ImplementationFileExtensions: ["c", "cc", "cpp", "cxx"]
 CheckOptions:
   readability-identifier-naming.NamespaceCase: lower_case
-  readability-identifier-naming.ClassCase: lower_case
-  readability-identifier-naming.StructCase: lower_case
+  readability-identifier-naming.ClassCase: CamelCase
+  readability-identifier-naming.StructCase: CamelCase
+  readability-identifier-naming.EnumCase: CamelCase
+  readability-identifier-naming.UnionCase: CamelCase
+  readability-identifier-naming.TypeAliasCase: CamelCase
   readability-identifier-naming.TemplateParameterCase: CamelCase
   readability-identifier-naming.FunctionCase: aNy_CasE
   readability-identifier-naming.VariableCase: lower_case
@@ -36,6 +40,6 @@ CheckOptions:
   readability-implicit-bool-conversion.AllowIntegerConditions: 1
   readability-implicit-bool-conversion.AllowPointerConditions: 1
   readability-function-cognitive-complexity.IgnoreMacros: 1
-  readability-identifier-length.IgnoredVariableNames: "^(r|c|n|r0|r1)$"
-  readability-identifier-length.IgnoredParameterNames: "^[inx]$"
+  readability-identifier-length.IgnoredVariableNames: "^(r|c|n|r0|r1|fd)$"
+  readability-identifier-length.IgnoredParameterNames: "^([inx]|fd)$"
   readability-identifier-length.IgnoredLoopCounterNames: "^[ijkrc_]$"
