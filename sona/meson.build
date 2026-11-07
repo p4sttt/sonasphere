@@ -2,7 +2,7 @@
 # bitvm_proto_dep — never add bitvm_dep here.
 sona_inc = include_directories('include')
 
-# Header-only until the first .cpp lands (M5), same as shared/.
+# header-only until the first library .cpp is added.
 sona_dep = declare_dependency(
   include_directories: sona_inc,
   dependencies: [bitvm_proto_dep, threads_dep],

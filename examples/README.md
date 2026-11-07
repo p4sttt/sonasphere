@@ -1,6 +1,6 @@
 # examples
 
-Примеры композиций `.sona`. Пусто, пока не спроектирован язык (`docs/architecture.md`, сессия L1).
+Примеры композиций `.sona` появятся после разработки языка (`docs/architecture.md`).
 
 `offline/ping.bvs` и `offline/ping.bvg` — партитура и DSP-граф bitvm, не требующие sona:
 

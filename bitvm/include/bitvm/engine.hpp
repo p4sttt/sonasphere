@@ -50,7 +50,7 @@ struct Notification {
 };
 
 /// prepares on one control thread and renders on one audio thread; no shared caller locks.
-/// call(), tree() and status() require a stopped audio thread in m2. submit(), collect() and
+/// call(), tree() and status() require a stopped audio thread. submit(), collect() and
 /// pop_notification() may run concurrently with process(). construction validates config.
 class Engine {
 public:
