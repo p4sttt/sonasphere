@@ -5,11 +5,19 @@ sndfile_dep = dependency('sndfile', required: get_option('sndfile'))
 
 bitvm_inc = include_directories('include')
 
-# Header-only until the first .cpp lands (M2), same as shared/.
-# ALSA backend sources join the library only when alsa_dep.found().
+bitvm_lib = static_library(
+  'bitvm',
+  'src/buses.cpp',
+  'src/graph.cpp',
+  include_directories: bitvm_inc,
+  dependencies: [bitvm_proto_dep, threads_dep, sndfile_dep],
+  cpp_args: sndfile_dep.found() ? ['-DBITVM_HAVE_SNDFILE=1'] : [],
+)
+
 bitvm_dep = declare_dependency(
   include_directories: bitvm_inc,
-  dependencies: [bitvm_proto_dep, threads_dep, alsa_dep, sndfile_dep],
+  link_with: bitvm_lib,
+  dependencies: [bitvm_proto_dep, threads_dep, sndfile_dep],
 )
 
 executable('bitvmd', 'bitvmd/main.cpp', dependencies: bitvm_dep, install: true)

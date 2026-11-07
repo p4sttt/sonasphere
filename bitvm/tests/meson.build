@@ -1,6 +1,5 @@
-# Each entry is a gtest file <name>.cpp in this directory.
-bitvm_tests = [
-]
+# each entry is a gtest file <name>.cpp in this directory.
+bitvm_tests = ['dsp']
 
 foreach name : bitvm_tests
   test(
